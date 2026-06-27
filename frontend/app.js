@@ -3,7 +3,7 @@
 // ======================================================
 
 // ⚠️  Change to your deployed backend URL before submission
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://bajaj-assignment-ek64.vercel.app";
 
 // ─── State ────────────────────────────────────────────
 let apiResponse  = null;
