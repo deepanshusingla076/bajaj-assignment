@@ -1,17 +1,10 @@
-// ======================================================
-// BFHL Frontend — app.js
-// ======================================================
-
-// ⚠️  Change to your deployed backend URL before submission
 const API_BASE = "https://bajaj-assignment-ek64.vercel.app";
 
-// ─── State ────────────────────────────────────────────
-let apiResponse  = null;
+let apiResponse = null;
 let selectedFile = null;
 
-// ─── File Input ───────────────────────────────────────
-const fileInput      = document.getElementById("file-input");
-const fileDropZone   = document.getElementById("file-drop-zone");
+const fileInput = document.getElementById("file-input");
+const fileDropZone = document.getElementById("file-drop-zone");
 const fileDropContent = document.getElementById("file-drop-content");
 
 fileInput.addEventListener("change", (e) => {
@@ -45,17 +38,15 @@ function attachFile(file) {
 
 // ─── Submit ───────────────────────────────────────────
 async function submitData() {
-  const jsonInput  = document.getElementById("json-input").value.trim();
-  const jsonError  = document.getElementById("json-error");
-  const submitBtn  = document.getElementById("submit-btn");
-  const spinner    = document.getElementById("spinner");
-  const btnText    = document.getElementById("btn-text");
+  const jsonInput = document.getElementById("json-input").value.trim();
+  const jsonError = document.getElementById("json-error");
+  const submitBtn = document.getElementById("submit-btn");
+  const spinner = document.getElementById("spinner");
+  const btnText = document.getElementById("btn-text");
 
-  // Reset error
   jsonError.classList.add("hidden");
   jsonError.textContent = "⚠ Invalid JSON — please check your input";
 
-  // Parse + validate JSON
   let parsed;
   try {
     if (!jsonInput) throw new Error("empty");
@@ -78,15 +69,14 @@ async function submitData() {
   btnText.textContent = "Processing…";
 
   try {
-    // Optionally attach file as base64
     if (selectedFile && !parsed.file_b64) {
       parsed.file_b64 = await fileToBase64(selectedFile);
     }
 
     const res = await fetch(`${API_BASE}/bfhl`, {
-      method:  "POST",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body:    JSON.stringify(parsed)
+      body: JSON.stringify(parsed)
     });
 
     if (!res.ok) {
@@ -96,7 +86,6 @@ async function submitData() {
 
     apiResponse = await res.json();
 
-    // Show filter & response cards
     document.getElementById("filter-card").classList.remove("hidden");
     document.getElementById("response-card").classList.remove("hidden");
     renderFiltered();
@@ -114,18 +103,15 @@ async function submitData() {
 function renderFiltered() {
   if (!apiResponse) return;
 
-  const statusBadge     = document.getElementById("status-badge");
+  const statusBadge = document.getElementById("status-badge");
   const responseContent = document.getElementById("response-content");
 
-  // Status badge
   statusBadge.textContent = apiResponse.is_success ? "✓ 200 OK" : "✗ Error";
-  statusBadge.className   = `status-badge ${apiResponse.is_success ? "success" : "error"}`;
+  statusBadge.className = `status-badge ${apiResponse.is_success ? "success" : "error"}`;
 
-  // Get selected filters
-  const selectEl  = document.getElementById("filter-select");
-  const selected  = Array.from(selectEl.selectedOptions).map(o => o.value);
+  const selectEl = document.getElementById("filter-select");
+  const selected = Array.from(selectEl.selectedOptions).map(o => o.value);
 
-  // If nothing selected — prompt user
   if (selected.length === 0) {
     responseContent.innerHTML = `
       <div class="empty-state">
@@ -186,21 +172,20 @@ function renderFileInfo(d) {
 }
 
 function showError(msg) {
-  const responseCard    = document.getElementById("response-card");
-  const statusBadge     = document.getElementById("status-badge");
+  const responseCard = document.getElementById("response-card");
+  const statusBadge = document.getElementById("status-badge");
   const responseContent = document.getElementById("response-content");
 
   responseCard.classList.remove("hidden");
   statusBadge.textContent = "✗ Error";
-  statusBadge.className   = "status-badge error";
+  statusBadge.className = "status-badge error";
   responseContent.innerHTML = `<div class="response-block"><div class="response-block-body" style="color:var(--error)">${msg}</div></div>`;
 }
 
-// ─── Utils ────────────────────────────────────────────
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload  = () => resolve(reader.result.split(",")[1]);
+    reader.onload = () => resolve(reader.result.split(",")[1]);
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
@@ -227,7 +212,6 @@ function shakeElement(el) {
   setTimeout(() => (el.style.animation = ""), 400);
 }
 
-// Dynamic shake keyframes
 const _ks = document.createElement("style");
 _ks.textContent = `
   @keyframes shake {
@@ -239,7 +223,6 @@ _ks.textContent = `
   }`;
 document.head.appendChild(_ks);
 
-// Ctrl+Enter shortcut
 document.getElementById("json-input").addEventListener("keydown", (e) => {
   if ((e.ctrlKey || e.metaKey) && e.key === "Enter") submitData();
 });
