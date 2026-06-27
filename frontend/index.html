@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BFHL | Bajaj Finserv Health Challenge</title>
+  <meta name="description" content="Bajaj Finserv Health Dev Challenge - Full Stack API Interface for data filtering and processing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">BF</div>
+      <span class="logo-text">BFHL <span class="logo-sub">Dev Challenge</span></span>
+    </div>
+    <div class="header-badge">Full Stack</div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- Hero -->
+    <section class="hero">
+      <h1 class="hero-title">
+        Bajaj Finserv Health
+        <span class="gradient-text">API Playground</span>
+      </h1>
+      <p class="hero-desc">Enter a JSON array, select filters, and see your data processed in real time.</p>
+    </section>
+
+    <!-- Input Card -->
+    <div class="card" id="input-card">
+      <div class="card-header">
+        <span class="card-icon">📥</span>
+        <h2 class="card-title">API Input</h2>
+      </div>
+
+      <!-- JSON textarea -->
+      <div class="form-group">
+        <label for="json-input" class="form-label">JSON Input</label>
+        <textarea
+          id="json-input"
+          class="form-textarea"
+          placeholder='{ "data": ["A","C","z","1","2","3"] }'
+          rows="4"
+          spellcheck="false"
+          autocomplete="off"
+        ></textarea>
+        <div id="json-error" class="error-msg hidden">⚠ Invalid JSON — please check your input</div>
+      </div>
+
+      <!-- File attach -->
+      <div class="form-group">
+        <label for="file-input" class="form-label">
+          Attach File
+          <span class="form-label-hint">(optional · sent as base64)</span>
+        </label>
+        <div class="file-drop-zone" id="file-drop-zone">
+          <input type="file" id="file-input" class="file-input" accept="*/*" />
+          <div class="file-drop-content" id="file-drop-content">
+            <svg class="file-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            <span>Drop file here or <strong>click to browse</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <button id="submit-btn" class="btn-primary" onclick="submitData()">
+        <span id="btn-text">Submit →</span>
+        <span id="spinner" class="hidden">⟳</span>
+      </button>
+    </div>
+
+    <!-- Filter Card — shown after successful API call -->
+    <div class="card hidden" id="filter-card">
+      <div class="card-header">
+        <span class="card-icon">🔽</span>
+        <h2 class="card-title">Filter Response</h2>
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label for="filter-select" class="form-label">Select fields to display</label>
+        <select id="filter-select" class="filter-select" multiple size="5" onchange="renderFiltered()">
+          <option value="numbers">Numbers</option>
+          <option value="alphabets">Alphabets</option>
+          <option value="highest">Highest Alphabet</option>
+          <option value="prime">Prime Found</option>
+          <option value="file">File Info</option>
+        </select>
+        <p class="select-hint">Hold <kbd>Ctrl</kbd> / <kbd>⌘</kbd> to select multiple</p>
+      </div>
+    </div>
+
+    <!-- Response Card -->
+    <div class="card hidden" id="response-card">
+      <div class="card-header">
+        <span class="card-icon">📤</span>
+        <h2 class="card-title">Response</h2>
+        <div class="status-badge" id="status-badge"></div>
+      </div>
+      <div id="response-content" class="response-content"></div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>Bajaj Finserv Health Dev Challenge &mdash; Full Stack Engineering</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
