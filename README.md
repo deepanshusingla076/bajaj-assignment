@@ -1,6 +1,6 @@
-# 🏥 Bajaj Finserv Health — Full Stack Challenge
+# 🏥 Bajaj Finserv Health — Assignment
 
-A full-stack submission for the **Bajaj Finserv Health Dev Challenge**, consisting of a Node.js/Express REST API backend and a vanilla HTML/CSS/JS frontend.
+A full-stack submission for the **Bajaj Finserv Health Dev Challenge**, consisting of a Node.js/Express REST API backend and frontend.
 
 ---
 
@@ -16,7 +16,7 @@ bajaj/
 │   └── .gitignore
 └── frontend/
     ├── index.html          # Single-page UI
-    ├── style.css           # Premium dark-mode design
+    ├── style.css           
     └── app.js              # API calls, filtering, rendering
 ```
 
@@ -146,35 +146,5 @@ If `file_b64` is provided in the request body:
   - Highest Alphabet
   - Prime Found
   - File Info
-- **Keyboard shortcut** — `Ctrl+Enter` to submit
-- **Dark mode** premium UI with smooth animations
 
 ---
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Backend | Node.js, Express 5, CORS |
-| Frontend | HTML5, Vanilla CSS, Vanilla JS |
-| API | REST, JSON |
-
----
-
-## ✅ Checklist
-
-- [x] `POST /bfhl` returns all required fields
-- [x] `GET /bfhl` returns `{ operation_code: 1 }`
-- [x] CORS enabled on backend
-- [x] File base64 handling with MIME detection
-- [x] Frontend multi-select filter (dropdown)
-- [x] Input validation with error messages
-- [x] GitHub repository is public
-
----
-
-## 👤 Author
-
-**Deepanshu Singla**  
-Roll No: `2310991645`  
-Email: `deepanshusingla076@gmail.com`
